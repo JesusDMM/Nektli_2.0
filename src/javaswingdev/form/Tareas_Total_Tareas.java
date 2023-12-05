@@ -36,7 +36,7 @@ public class Tareas_Total_Tareas extends javax.swing.JPanel {
         jTextField15 = new javax.swing.JTextField();
         jButton10 = new javax.swing.JButton();
         jLabel31 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        jComboBox1 = new javax.swing.JComboBox<String>();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
 
@@ -51,7 +51,7 @@ public class Tareas_Total_Tareas extends javax.swing.JPanel {
         jLabel2.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
 
-        jLabel7.setFont(new java.awt.Font("Tw Cen MT", 0, 53)); // NOI18N
+        jLabel7.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 53)); // NOI18N
         jLabel7.setText("Total de Tareas");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -59,35 +59,36 @@ public class Tareas_Total_Tareas extends javax.swing.JPanel {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(242, Short.MAX_VALUE)
-                .addComponent(jLabel7)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel2)
-                .addContainerGap(369, Short.MAX_VALUE))
+                .addContainerGap(1085, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(378, Short.MAX_VALUE)
+                .addComponent(jLabel7)
+                .addGap(352, 352, 352))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(17, 17, 17)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel7)
-                    .addComponent(jLabel2))
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addComponent(jLabel7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel2)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 950, -1));
+        add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1100, 70));
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel3.setBorder(new javax.swing.border.MatteBorder(null));
+        jPanel3.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 2, new java.awt.Color(0, 0, 0)));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         search_tab.setBackground(new java.awt.Color(255, 255, 255));
-        search_tab.setBorder(new javax.swing.border.MatteBorder(null));
+        search_tab.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 2, new java.awt.Color(0, 0, 0)));
         search_tab.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel24.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 32)); // NOI18N
+        jLabel24.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 34)); // NOI18N
         jLabel24.setText("Nombre de la colmena");
-        search_tab.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(51, 13, -1, -1));
+        search_tab.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 20, -1, -1));
 
         jTextField15.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
         jTextField15.addActionListener(new java.awt.event.ActionListener() {
@@ -95,7 +96,7 @@ public class Tareas_Total_Tareas extends javax.swing.JPanel {
                 jTextField15ActionPerformed(evt);
             }
         });
-        search_tab.add(jTextField15, new org.netbeans.lib.awtextra.AbsoluteConstraints(51, 63, 380, 35));
+        search_tab.add(jTextField15, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 70, 380, 35));
 
         jButton10.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 24)); // NOI18N
         jButton10.setText("Buscar");
@@ -105,18 +106,18 @@ public class Tareas_Total_Tareas extends javax.swing.JPanel {
                 jButton10ActionPerformed(evt);
             }
         });
-        search_tab.add(jButton10, new org.netbeans.lib.awtextra.AbsoluteConstraints(384, 144, 156, 32));
+        search_tab.add(jButton10, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 130, 156, 32));
 
-        jLabel31.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 32)); // NOI18N
+        jLabel31.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 34)); // NOI18N
         jLabel31.setText("Filtros");
-        search_tab.add(jLabel31, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 13, -1, -1));
+        search_tab.add(jLabel31, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 20, -1, -1));
 
         jComboBox1.setEditable(true);
         jComboBox1.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cantidad de tareas", "Tratamiento", "Movimiento", "Cosecha", "Alimento" }));
-        search_tab.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 65, 357, 32));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Cantidad de tareas", "Tratamiento", "Movimiento", "Cosecha", "Alimento" }));
+        search_tab.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 70, 357, 30));
 
-        jPanel3.add(search_tab, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 190));
+        jPanel3.add(search_tab, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1100, 190));
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -131,9 +132,9 @@ public class Tareas_Total_Tareas extends javax.swing.JPanel {
         ));
         jScrollPane2.setViewportView(jTable1);
 
-        jPanel3.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 200, 850, 300));
+        jPanel3.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 250, 850, 300));
 
-        add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 950, 590));
+        add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 1100, 620));
     }// </editor-fold>//GEN-END:initComponents
 
     private void jTextField15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField15ActionPerformed

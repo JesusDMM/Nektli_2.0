@@ -49,7 +49,7 @@ public class Tareas_Alimentos extends javax.swing.JPanel {
         jLabel2.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
 
-        jLabel7.setFont(new java.awt.Font("Tw Cen MT", 0, 53)); // NOI18N
+        jLabel7.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 53)); // NOI18N
         jLabel7.setText("Alimentos");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -57,26 +57,24 @@ public class Tareas_Alimentos extends javax.swing.JPanel {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(296, Short.MAX_VALUE)
-                .addComponent(jLabel7)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel2)
-                .addContainerGap(447, Short.MAX_VALUE))
+                .addContainerGap(1085, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(427, 427, 427)
+                .addComponent(jLabel7)
+                .addContainerGap(427, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(17, 17, 17)
-                        .addComponent(jLabel2))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel7)))
+                .addComponent(jLabel7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel2)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 950, -1));
+        add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1100, 70));
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 2, new java.awt.Color(0, 0, 0)));
@@ -84,14 +82,14 @@ public class Tareas_Alimentos extends javax.swing.JPanel {
 
         jLabel20.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 34)); // NOI18N
         jLabel20.setText("Fecha");
-        jPanel3.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 20, -1, -1));
+        jPanel3.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 40, -1, -1));
 
         jDateChooser8.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
-        jPanel3.add(jDateChooser8, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 80, 380, 40));
+        jPanel3.add(jDateChooser8, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 100, 380, 40));
 
         jLabel17.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 34)); // NOI18N
         jLabel17.setText("Cantidad de alimento");
-        jPanel3.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 140, -1, 30));
+        jPanel3.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 160, -1, 30));
 
         jTextField10.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
         jTextField10.addActionListener(new java.awt.event.ActionListener() {
@@ -99,21 +97,21 @@ public class Tareas_Alimentos extends javax.swing.JPanel {
                 jTextField10ActionPerformed(evt);
             }
         });
-        jPanel3.add(jTextField10, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 190, 380, 40));
+        jPanel3.add(jTextField10, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 210, 380, 40));
 
         jLabel21.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 34)); // NOI18N
         jLabel21.setText("Alimento");
-        jPanel3.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 260, -1, 30));
+        jPanel3.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 270, -1, 30));
 
         jTextField11.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
-        jPanel3.add(jTextField11, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 300, 380, 40));
+        jPanel3.add(jTextField11, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 320, 380, 40));
 
         jLabel13.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 32)); // NOI18N
         jLabel13.setText("Nombre de la colmena");
-        jPanel3.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 360, -1, -1));
+        jPanel3.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 370, -1, -1));
 
         jTextField9.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
-        jPanel3.add(jTextField9, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 410, 380, 40));
+        jPanel3.add(jTextField9, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 430, 380, 40));
 
         jButton7.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 32)); // NOI18N
         jButton7.setText("Guardar");
@@ -123,34 +121,34 @@ public class Tareas_Alimentos extends javax.swing.JPanel {
                 jButton7ActionPerformed(evt);
             }
         });
-        jPanel3.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 470, 220, 70));
+        jPanel3.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 510, 220, 70));
 
         jTextArea2.setColumns(20);
         jTextArea2.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
         jTextArea2.setRows(5);
         jScrollPane2.setViewportView(jTextArea2);
 
-        jPanel3.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 290, 380, 160));
+        jPanel3.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 320, 380, 150));
 
         jLabel22.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 34)); // NOI18N
         jLabel22.setText("Nota");
-        jPanel3.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 250, -1, 30));
+        jPanel3.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 270, -1, 30));
 
         jTextField7.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
-        jPanel3.add(jTextField7, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 190, 380, 40));
+        jPanel3.add(jTextField7, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 210, 380, 40));
 
         jLabel8.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 32)); // NOI18N
         jLabel8.setText("Cantidad de dias");
-        jPanel3.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 130, -1, -1));
+        jPanel3.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 150, -1, -1));
 
         jTextField14.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
-        jPanel3.add(jTextField14, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 80, 380, 40));
+        jPanel3.add(jTextField14, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 100, 380, 40));
 
         jLabel23.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 34)); // NOI18N
         jLabel23.setText("Tipo");
-        jPanel3.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 20, -1, 40));
+        jPanel3.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 40, -1, 40));
 
-        add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 90, 950, 590));
+        add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 1100, 620));
     }// </editor-fold>//GEN-END:initComponents
 
     private void jTextField10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField10ActionPerformed
