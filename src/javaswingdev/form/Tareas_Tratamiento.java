@@ -1,5 +1,8 @@
 package javaswingdev.form;
 
+import inventario_quimico.email;
+import static inventario_quimico.login.Correo;
+import static inventario_quimico.login.id;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.JOptionPane;
@@ -145,6 +148,11 @@ public class Tareas_Tratamiento extends javax.swing.JPanel {
         jButton3.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 32)); // NOI18N
         jButton3.setText("Guardar");
         jButton3.setOpaque(false);
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
         jPanel3.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 510, 220, 70));
 
         add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 1100, 620));
@@ -153,6 +161,50 @@ public class Tareas_Tratamiento extends javax.swing.JPanel {
     private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        //tratameintos
+         try {
+            /*int id_Usuario, int id_Colmena, String fecha_inicial, String fecha_final,
+    String enfermedad, String producto, double dosis,int repeticiones, String persona*/
+            Date selectedDate = jDateChooser2.getDate();
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            String fecha_inicial = sdf.format(selectedDate);
+            selectedDate = jDateChooser4.getDate();
+            String fecha_final = sdf.format(selectedDate);
+            String enfermedad = jTextField3.getText();
+            String producto = jTextField12.getText();
+            int repeticiones = Integer.parseInt(jTextField13.getText());
+            double dosis = Double.parseDouble(jTextField5.getText());
+            String encargado = jTextField4.getText();
+            String nombre = jTextField2.getText();
+
+            if (fecha_inicial.equals("") || fecha_final.equals("")
+                    || enfermedad.equals("") || producto.equals("") || encargado.equals("") || nombre.equals("")) {
+
+            } else {
+                int id_colmena = bd.Buscar_Colmena(nombre, id);
+                if (id_colmena != 0) {
+                    int bandera = bd.Ingresar_Tratamiento(id, id_colmena, fecha_inicial, fecha_final, enfermedad, producto, dosis, repeticiones, encargado);
+                    if (bandera == 1) {
+                        JOptionPane.showMessageDialog(null, "Se guardo la tarea con exito");
+                        email email = new email();
+                        String mensaje_principal = "Creacion de la tarea Tratamientos";
+                        String contenido = "Se creo la tarea de tratamiento en la colemena " + nombre + ", recuerda que el tratamiendo es cada : "+repeticiones + " y que la fecha final es "
+                                + fecha_final;
+                        email.Mandar_especificaciones(Correo, mensaje_principal, contenido);
+                        email.Mandar_Correo();
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Hubo un error intentalo mas tarde");
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "No se encontro ninguna colmena con ese nombre");
+                }
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Ingrese los datos correctamente");
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton3;

@@ -1,19 +1,46 @@
 package javaswingdev.form;
 
+import inventario_quimico.email;
 import inventario_quimico.login;
+import static inventario_quimico.login.Correo;
+import static inventario_quimico.login.id;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javaswingdev.main.Main;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import nektli.bd;
 
 public class Colmenas extends javax.swing.JPanel {
-
+    DefaultTableModel modelo_materiales = new DefaultTableModel ();
     public Colmenas(String name) {
         initComponents();
-   
+        bd bd = new bd ();
+        modelo_materiales.setColumnCount(0);
+        modelo_materiales.addColumn("Id");
+        modelo_materiales.addColumn("Nombre");
+        modelo_materiales.addColumn("N_Alzas");
+        modelo_materiales.addColumn("N_Bastidores");
+        modelo_materiales.addColumn("Tipo");
+        modelo_materiales.addColumn("Sueldo");
+        modelo_materiales.addColumn("Protecció");
+        modelo_materiales.addColumn("Estado");
+        modelo_materiales.addColumn("Fecha");
+        modelo_materiales.addColumn("Longitud");
+        modelo_materiales.addColumn("Latitud");
+        modelo_materiales.addColumn("Ciudad");
+        modelo_materiales.addColumn("Descripcion");
+        table1.setModel(modelo_materiales);
+        Mostrar_materiales();
     }
-
+    
+    public void Mostrar_materiales() {
+        modelo_materiales.setRowCount(0);
+        bd bd = new bd ();
+        modelo_materiales = bd.Tabla_General(modelo_materiales, id);
+        table1.setModel(modelo_materiales);
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -388,6 +415,12 @@ public class Colmenas extends javax.swing.JPanel {
                 longitud, latitud, ciudad, descripcion, id);
                 if (bandera == true) {
                     JOptionPane.showMessageDialog(null, "Se creo la colmena con exito");
+                    Mostrar_materiales();
+                    email email = new email ();
+                    String mensaje_principal = "Creacion de una colema";
+                    String contenido = "Se creo la colmena de manera satisfactoria con el nombre de "+nombre;
+                    email.Mandar_especificaciones(Correo, mensaje_principal, contenido);
+                    email.Mandar_Correo();
                 }else{
                     JOptionPane.showMessageDialog(null, "Ups! ocurrio un error intentalo despues");
                 }

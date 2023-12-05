@@ -1,5 +1,7 @@
 package javaswingdev.form;
 
+import inventario_quimico.email;
+import static inventario_quimico.login.Correo;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.JOptionPane;
@@ -152,6 +154,11 @@ public class Tareas_Cosecha extends javax.swing.JPanel {
                     int bandera = bd.Insertar_Cosecha(id, id_colmena, fecha_inicial, producto, cantidad, descripcion);
                     if (bandera != 0) {
                         JOptionPane.showMessageDialog(null, "Se creo la tarea con exito");
+                        email email = new email ();
+                    String mensaje_principal = "Creacion de la tarea de cosecha";
+                    String contenido = "Se creo la tarea de manera satisfactoria en la colmena "+nombre + " para la fecha propuesta el dia "+fecha_inicial;
+                    email.Mandar_especificaciones(Correo, mensaje_principal, contenido);
+                    email.Mandar_Correo();
                     } else {
                         JOptionPane.showMessageDialog(null, "Se produjo un error intentelo mas tarde");
                     }

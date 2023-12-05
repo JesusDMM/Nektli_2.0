@@ -29,7 +29,35 @@ public class bd {
             System.err.println(e);
         }
     }
-
+    
+    public static DefaultTableModel Tabla_General(DefaultTableModel modelo, int id_usuario) {
+        String arreglo[] = new String[13];
+        try {
+            st = con.createStatement();
+            rs = st.executeQuery("select * from colmenas where Id_usuario = " + id_usuario);
+            while (rs.next()) {
+                arreglo[0] = rs.getInt(1)+"";
+                arreglo[1] = rs.getString(2);
+                arreglo[2] = rs.getInt(3)+"";
+                arreglo[3] = rs.getInt(4)+"";
+                arreglo[4] = rs.getString(5);
+                arreglo[5] = rs.getString(6);
+                arreglo[6] = rs.getString(7);
+                arreglo[7] = rs.getString(8);
+                arreglo[8] = rs.getString(9);
+                arreglo[9] = rs.getDouble(10)+"";
+                arreglo[10] = rs.getDouble(11)+"";
+                arreglo[11] = rs.getString(12);
+                arreglo[12] = rs.getString(13);
+                modelo.addRow(arreglo);
+            }
+            return modelo;
+        } catch (Exception e) {
+            System.out.println("El error es " + e);
+        }
+        return modelo;
+    }
+    
     public int Inicio_Sesion(String Nombre, String Contraseña) {
         try {
             ps = con.prepareStatement("Select * from USUARIOS where CORREO = ? and Contraseña = ?");

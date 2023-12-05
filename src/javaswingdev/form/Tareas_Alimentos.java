@@ -1,5 +1,7 @@
 package javaswingdev.form;
 
+import inventario_quimico.email;
+import static inventario_quimico.login.Correo;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.JOptionPane;
@@ -10,7 +12,7 @@ public class Tareas_Alimentos extends javax.swing.JPanel {
 
     public Tareas_Alimentos(String name) {
         initComponents();
-   
+
     }
 
     @SuppressWarnings("unchecked")
@@ -173,10 +175,15 @@ public class Tareas_Alimentos extends javax.swing.JPanel {
                 int id_colmena = bd.Buscar_Colmena(nombre, id);
                 if (id_colmena != 0) {
                     //Insertar_alimentacion (int id_Usuario, int id_Colmena, String fecha, String alimento,String tipo, double cantidad, int cantidad_dias
-                        //,String descripcion)
+                    //,String descripcion)
                     int bandera = bd.Insertar_alimentacion(id, id_colmena, fecha_inicial, alimentos, tipo, cantidad, cantidad_dias, descripcion);
                     if (bandera != 0) {
                         JOptionPane.showMessageDialog(null, "Se guardo la tarea con exito");
+                        email email = new email();
+                        String mensaje_principal = "Creacion de una tarea de alimentación";
+                        String contenido = "Se creo la tarea en la colemna " + nombre + " con la fecha para "+fecha_inicial;
+                        email.Mandar_especificaciones(Correo, mensaje_principal, contenido);
+                        email.Mandar_Correo();
                     } else {
                         JOptionPane.showMessageDialog(null, "Se produjo un error intentalo despues");
                     }
