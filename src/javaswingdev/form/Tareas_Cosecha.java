@@ -6,13 +6,14 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.JOptionPane;
 import static inventario_quimico.login.id;
+import java.util.regex.Pattern;
 import nektli.bd;
 
 public class Tareas_Cosecha extends javax.swing.JPanel {
 
     public Tareas_Cosecha(String name) {
         initComponents();
-   
+
     }
 
     @SuppressWarnings("unchecked")
@@ -145,32 +146,50 @@ public class Tareas_Cosecha extends javax.swing.JPanel {
             double cantidad = Double.parseDouble(jTextField8.getText());
             String descripcion = jTextArea1.getText();
             String nombre = jTextField6.getText();
-            if (fecha_inicial.equals("") || producto.equals("") || descripcion.equals("") || nombre.equals("")) {
+            if (fecha_inicial.equals("") || producto.trim().equals("") || descripcion.trim().equals("") || nombre.trim().equals("")) {
                 JOptionPane.showMessageDialog(null, "Rellena todos los datos");
             } else {
-                //Insertar_Cosecha (int id_Usuario, int id_Colmena, String fecha, String producto, double cantidad, String descripcion)
-                int id_colmena = bd.Buscar_Colmena(nombre, id);
-                if (id_colmena != 0) {
-                    int bandera = bd.Insertar_Cosecha(id, id_colmena, fecha_inicial, producto, cantidad, descripcion);
-                    if (bandera != 0) {
-                        JOptionPane.showMessageDialog(null, "Se creo la tarea con exito");
-                        email email = new email ();
-                    String mensaje_principal = "Creacion de la tarea de cosecha";
-                    String contenido = "Se creo la tarea de manera satisfactoria en la colmena "+nombre + " para la fecha propuesta el dia "+fecha_inicial;
-                    email.Mandar_especificaciones(Correo, mensaje_principal, contenido);
-                    email.Mandar_Correo();
+                boolean bandera_colmena = esPalabraValida(nombre);
+                boolean bandera_producto = esPalabraValida2(producto);
+                boolean bandera_descripcion = esPalabraValida2(descripcion);
+                if (bandera_colmena && bandera_producto && bandera_descripcion) {
+                    int id_colmena = bd.Buscar_Colmena(nombre, id);
+                    if (id_colmena != 0) {
+                        int bandera = bd.Insertar_Cosecha(id, id_colmena, fecha_inicial, producto, cantidad, descripcion);
+                        if (bandera != 0) {
+                            JOptionPane.showMessageDialog(null, "Se creo la tarea con exito");
+                            email email = new email();
+                            String mensaje_principal = "Creación de la tarea de cosecha";
+                            String contenido = "Se creo la tarea de manera satisfactoria en la colmena " + nombre + " para la fecha propuesta el dia " + fecha_inicial;
+                            email.Mandar_especificaciones(Correo, mensaje_principal, contenido);
+                            email.Mandar_Correo();
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Se produjo un error intentelo mas tarde");
+                        }
                     } else {
-                        JOptionPane.showMessageDialog(null, "Se produjo un error intentelo mas tarde");
+                        JOptionPane.showMessageDialog(null, "No se encontro el nombre de la colmena");
                     }
-                } else {
-                    JOptionPane.showMessageDialog(null, "No se encontro el nombre de la colmena");
+                }else{
+                    JOptionPane.showMessageDialog(null, "El nombre de la colmena o producto no debe de empezar con numeros, espacios o contener caracteres especiales");
                 }
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Ingrese los datos correctamente");
+            JOptionPane.showMessageDialog(null, "Seleccione una fecha o ingrese numeros dentro de los apartados correspondientes");
         }
     }//GEN-LAST:event_jButton4ActionPerformed
 
+    public static boolean esPalabraValida2(String palabra) {
+        String patron = "^[a-zA-Z]+(\\s?[a-zA-Z])*$";
+        Pattern pattern = Pattern.compile(patron);
+        return pattern.matcher(palabra).matches();
+    }
+    
+    public static boolean esPalabraValida(String palabra) {
+        String patron = "^[a-zA-Z]+(\\s?[a-zA-Z0-9]+)*$";
+        Pattern pattern = Pattern.compile(patron);
+        return pattern.matcher(palabra).matches();
+    }
+    
     private void jTextField6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField6ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField6ActionPerformed

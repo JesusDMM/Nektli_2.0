@@ -4,7 +4,6 @@
  */
 package nektli;
 
-
 import inventario_quimico.login;
 import javax.swing.ImageIcon;
 
@@ -29,14 +28,14 @@ public class Registro extends javax.swing.JFrame {
      */
     public Registro() {
         initComponents();
-          ImageIcon icono = new ImageIcon("C:\\Users\\Jaime Tec\\Documents\\TecMante\\Roberto\\Nektli\\src\\recursos\\icono.png");
+        ImageIcon icono = new ImageIcon("C:\\Users\\Jaime Tec\\Documents\\TecMante\\Roberto\\Nektli\\src\\recursos\\icono.png");
 
         // Establecer el ícono en la ventana
         setIconImage(icono.getImage());
     }
 
     public boolean verificar_email(String correo) {
-        String regx = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$";
+        String regx = "^[a-zA-Z][a-zA-Z0-9_\\.]*@[a-zA-Z0-9.-]+$";
         Pattern pattern = Pattern.compile(regx);
         Matcher matcher = pattern.matcher(correo);
         if (matcher.matches()) {
@@ -191,33 +190,55 @@ public class Registro extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jPasswordField1ActionPerformed
 
+    public static boolean esStringValido(String cadena) {
+        String patron = "^[a-zA-Z][a-zA-Z0-9_\\s]*$";
+        Pattern pattern = Pattern.compile(patron);
+        return pattern.matcher(cadena).matches();
+    }
+
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         if (jTextField1.getText().equals("") || jTextField2.getText().equals("") || jPasswordField1.getText().equals("") || jPasswordField2.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "No dejes ningun campo en blanco");
         } else {
-            if (jPasswordField1.getText().equals(jPasswordField2.getText())) {
-                bd bd = new bd();
-                String Nombre = jTextField2.getText();
-                Object Seleccion = jComboBox1.getSelectedItem();
-                String Ocupacion = Seleccion.toString();
-                String Correo = jTextField1.getText();
-                String Contraseña = jPasswordField1.getText();
-                boolean verificacion_correo = verificar_email(Correo);
-                if (verificacion_correo == true) {
-                    boolean bandera = bd.Ingresar_Usuario(Nombre, Ocupacion, Correo, Contraseña);
-                    if (bandera == true) {
-                        JOptionPane.showMessageDialog(rootPane, "Informacion Guardada con exito, Inicia Sesion");
-                        login login = new login();
-                        login.setVisible(true);
-                        this.dispose();
+            String Nombre = jTextField2.getText();
+            boolean bandera_nombre = esStringValido(Nombre);
+            if (bandera_nombre == true) {
+                if (jPasswordField1.getText().equals(jPasswordField2.getText())) {
+                    boolean bandera_contraseña = esStringValido(jPasswordField1.getText());
+                    if (bandera_contraseña) {
+                        bd bd = new bd();
+                        Object Seleccion = jComboBox1.getSelectedItem();
+                        String Ocupacion = Seleccion.toString();
+                        String Correo = jTextField1.getText();
+                        String Contraseña = jPasswordField1.getText();
+                        boolean verificacion_correo = verificar_email(Correo);
+                        if (verificacion_correo == true) {
+                            boolean bandera_correo = bd.Buscar_Correo_Usuario(Correo);
+                            if (bandera_correo == true) {
+                                JOptionPane.showMessageDialog(rootPane, "El correo ya fue usado en otra cuenta, utiliza otro correo");
+                            } else {
+                                boolean bandera = bd.Ingresar_Usuario(Nombre, Ocupacion, Correo, Contraseña);
+                                if (bandera == true) {
+                                    JOptionPane.showMessageDialog(rootPane, "Cuenta creada con exito, Inicia sesion");
+                                    login login = new login();
+                                    login.setVisible(true);
+                                    this.dispose();
+                                } else {
+                                    JOptionPane.showMessageDialog(rootPane, "Error inesperado vuelve mas tarde");
+                                }
+                            }
+                        } else {
+                            JOptionPane.showMessageDialog(rootPane, "Ingrese un correo valido");
+                        }
                     } else {
-                        JOptionPane.showMessageDialog(rootPane, "Error inesperado vuelve mas tarde");
+                        JOptionPane.showMessageDialog(rootPane, "La contraseña no debe de empezar con números, guiones bajos, espacios o contener caracteres especiales");
                     }
+
                 } else {
-                    JOptionPane.showMessageDialog(rootPane, "Ingrese un correo valido");
+                    JOptionPane.showMessageDialog(rootPane, "Las contraseñas deben de coincidir");
                 }
             } else {
-                JOptionPane.showMessageDialog(rootPane, "Las contraseñas deben de coincidir");
+                JOptionPane.showMessageDialog(rootPane, "El nombre de usuario no debe de empezar con números, guiones bajos, espacios o contener caracteres especiales");
             }
         }
     }//GEN-LAST:event_jButton1ActionPerformed

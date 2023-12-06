@@ -5,6 +5,7 @@ import static inventario_quimico.login.Correo;
 import static inventario_quimico.login.id;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 import static nektli.Tareas.ID;
 import nektli.bd;
@@ -13,7 +14,7 @@ public class Tareas_Tratamiento extends javax.swing.JPanel {
 
     public Tareas_Tratamiento(String name) {
         initComponents();
-   
+
     }
 
     @SuppressWarnings("unchecked")
@@ -164,9 +165,7 @@ public class Tareas_Tratamiento extends javax.swing.JPanel {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         //tratameintos
-         try {
-            /*int id_Usuario, int id_Colmena, String fecha_inicial, String fecha_final,
-    String enfermedad, String producto, double dosis,int repeticiones, String persona*/
+        try {
             Date selectedDate = jDateChooser2.getDate();
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             String fecha_inicial = sdf.format(selectedDate);
@@ -180,32 +179,54 @@ public class Tareas_Tratamiento extends javax.swing.JPanel {
             String nombre = jTextField2.getText();
 
             if (fecha_inicial.equals("") || fecha_final.equals("")
-                    || enfermedad.equals("") || producto.equals("") || encargado.equals("") || nombre.equals("")) {
-
+                    || enfermedad.trim().equals("") || producto.trim().equals("") || encargado.trim().equals("") || nombre.trim().equals("")) {
+                JOptionPane.showMessageDialog(null, "Ingresa todos los datos");
             } else {
-                int id_colmena = bd.Buscar_Colmena(nombre, id);
-                if (id_colmena != 0) {
-                    int bandera = bd.Ingresar_Tratamiento(id, id_colmena, fecha_inicial, fecha_final, enfermedad, producto, dosis, repeticiones, encargado);
-                    if (bandera == 1) {
-                        JOptionPane.showMessageDialog(null, "Se guardo la tarea con exito");
-                        email email = new email();
-                        String mensaje_principal = "Creacion de la tarea Tratamientos";
-                        String contenido = "Se creo la tarea de tratamiento en la colemena " + nombre + ", recuerda que el tratamiendo es cada : "+repeticiones + " y que la fecha final es "
-                                + fecha_final;
-                        email.Mandar_especificaciones(Correo, mensaje_principal, contenido);
-                        email.Mandar_Correo();
+                boolean bandera_producto = esPalabraValida2(producto);
+                boolean bandera_enfermedad = esPalabraValida2(enfermedad);
+                boolean bandera_encargado = esPalabraValida2(encargado);
+                boolean bandera_colmena = esPalabraValida(nombre);
+
+                if (bandera_colmena && bandera_encargado && bandera_enfermedad && bandera_producto) {
+                    int id_colmena = bd.Buscar_Colmena(nombre, id);
+                    if (id_colmena != 0) {
+                        int bandera = bd.Ingresar_Tratamiento(id, id_colmena, fecha_inicial, fecha_final, enfermedad, producto, dosis, repeticiones, encargado);
+                        if (bandera == 1) {
+                            JOptionPane.showMessageDialog(null, "Se guardo la tarea con exito");
+                            email email = new email();
+                            String mensaje_principal = "Creación de la tarea Tratamientos";
+                            String contenido = "Se creo la tarea de tratamiento en la colemena " + nombre + ", recuerda que el tratamiendo es cada : " + repeticiones + " y que la fecha final es "
+                                    + fecha_final;
+                            email.Mandar_especificaciones(Correo, mensaje_principal, contenido);
+                            email.Mandar_Correo();
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Hubo un error intentalo mas tarde");
+                        }
                     } else {
-                        JOptionPane.showMessageDialog(null, "Hubo un error intentalo mas tarde");
+                        JOptionPane.showMessageDialog(null, "No se encontro ninguna colmena con ese nombre");
                     }
                 } else {
-                    JOptionPane.showMessageDialog(null, "No se encontro ninguna colmena con ese nombre");
+                    JOptionPane.showMessageDialog(null, "No se permite ingresar datos que inicien con espacios, guiones o que contengan caracteres especiales");
                 }
+
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Ingrese los datos correctamente");
         }
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    public static boolean esPalabraValida2(String palabra) {
+        String patron = "^[a-zA-Z]+(\\s?[a-zA-Z])*$";
+        Pattern pattern = Pattern.compile(patron);
+        return pattern.matcher(palabra).matches();
+    }
+
+    public static boolean esPalabraValida(String palabra) {
+        String patron = "^[a-zA-Z]+(\\s?[a-zA-Z0-9]+)*$";
+        Pattern pattern = Pattern.compile(patron);
+        return pattern.matcher(palabra).matches();
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton3;
     private com.toedter.calendar.JDateChooser jDateChooser2;

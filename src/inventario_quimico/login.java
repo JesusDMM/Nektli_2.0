@@ -265,7 +265,7 @@ public class login extends javax.swing.JFrame {
         if (txtusername.getText().equals("") || txtpassword.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "No dejes ningun campo en blanco");
         } else {
-            id = bd.Inicio_Sesion(txtusername.getText(), txtpassword.getText());
+            id = bd.Inicio_Sesion(txtusername.getText().trim(), txtpassword.getText());
             if (id != 0) {
                 Correo = txtusername.getText();
                 Main menu = new Main();
@@ -286,7 +286,7 @@ public class login extends javax.swing.JFrame {
 
     private void jLabel11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel11MouseClicked
         // recuperar contraseña
-        if (txtusername.getText().equals("")) {
+        if (txtusername.getText().trim().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Ingresa primero el correo");
         } else {
             bd bd = new bd();

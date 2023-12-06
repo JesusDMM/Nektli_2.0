@@ -439,12 +439,12 @@ public class bd {
             st = con.createStatement();
             rs = st.executeQuery("select ta.Nombre_colmena, t.Fecha_Salida, t.Ciudad_Salida, t.Fecha_Llegada, t.Ciudad_Llegada, t.Motivo\n"
                     + "from Movimientos as t inner join Tareas as ta on t.id_Tarea = ta.Id \n"
-                    + "where ta.id_Usuario = 1 and ta.id_Colmena = 1;");
+                    + "where ta.id_Usuario = " + id_usuario+ " and ta.id_Colmena = "+ id_Colmena+";");
             while (rs.next()) {
                 arreglo[0] = rs.getString(1);
                 arreglo[1] = rs.getString(2);
                 arreglo[2] = rs.getString(3);
-                arreglo[3] = rs.getDouble(4) + "";
+                arreglo[3] = rs.getString(4);
                 arreglo[4] = rs.getString(5);
                 arreglo[5] = rs.getString(6);
                 modelo.addRow(arreglo);
