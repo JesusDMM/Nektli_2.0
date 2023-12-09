@@ -152,7 +152,11 @@ public class Tareas_Cosecha extends javax.swing.JPanel {
                 boolean bandera_colmena = esPalabraValida(nombre);
                 boolean bandera_producto = esPalabraValida2(producto);
                 boolean bandera_descripcion = esPalabraValida2(descripcion);
-                if (bandera_colmena && bandera_producto && bandera_descripcion) {
+                System.out.println(bandera_colmena);
+                System.out.println(bandera_producto);
+                System.out.println(bandera_descripcion);
+                if (bandera_colmena && bandera_producto && bandera_descripcion && nombre.length()<=15
+                        && producto.length()<=20 && descripcion.length() <= 100) {
                     int id_colmena = bd.Buscar_Colmena(nombre, id);
                     if (id_colmena != 0) {
                         int bandera = bd.Insertar_Cosecha(id, id_colmena, fecha_inicial, producto, cantidad, descripcion);
@@ -170,7 +174,7 @@ public class Tareas_Cosecha extends javax.swing.JPanel {
                         JOptionPane.showMessageDialog(null, "No se encontro el nombre de la colmena");
                     }
                 }else{
-                    JOptionPane.showMessageDialog(null, "El nombre de la colmena o producto no debe de empezar con numeros, espacios o contener caracteres especiales");
+                    JOptionPane.showMessageDialog(null, "El nombre de la colmena o producto no debe de empezar con numeros, espacios o contener caracteres especiales. Tampoco deben de superar los 20 caracteres de longitud");
                 }
             }
         } catch (Exception e) {

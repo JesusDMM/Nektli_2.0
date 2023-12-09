@@ -417,11 +417,11 @@ public class Colmenas extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(null, "No dejes datos vacios");
             } else {
                 boolean bandera_nombre = esPalabraValida2(nombre);
-                boolean bandera_ciudad = esPalabraValida(ciudad);
-
+                boolean bandera_ciudad = esPalabraValida2(ciudad);
+                boolean bandera_descripcion = esPalabraValida2(descripcion);
                 System.out.println("nombre " + bandera_nombre);
                 System.out.println("ciudad " + bandera_ciudad);
-                if (bandera_nombre && bandera_ciudad) {
+                if (bandera_nombre && bandera_ciudad && nombre.length()<=15 && ciudad.length()<=15 && bandera_descripcion && descripcion.length()<=100) {
                     bd bd = new bd();
                     int verificar_colmena = bd.Buscar_Colmena(nombre, id);
                     if (verificar_colmena != 0) {
@@ -444,7 +444,7 @@ public class Colmenas extends javax.swing.JPanel {
                         }
                     }
                 } else {
-                    JOptionPane.showMessageDialog(null, "El nombre de la colmena o ciudad no tienen el formato correcto");
+                    JOptionPane.showMessageDialog(null, "El nombre de la colmena, ciudad o descripción no tienen el formato correcto y deben de ser menores a 15 caracteres");
                 }
             }
         } catch (Exception e) {

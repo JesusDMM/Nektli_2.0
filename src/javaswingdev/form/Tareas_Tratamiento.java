@@ -187,7 +187,8 @@ public class Tareas_Tratamiento extends javax.swing.JPanel {
                 boolean bandera_encargado = esPalabraValida2(encargado);
                 boolean bandera_colmena = esPalabraValida(nombre);
 
-                if (bandera_colmena && bandera_encargado && bandera_enfermedad && bandera_producto) {
+                if (bandera_colmena && bandera_encargado && bandera_enfermedad && bandera_producto &&
+                        producto.length()<=20 && enfermedad.length()<=20 && encargado.length()<=20 && nombre.length()<=15) {
                     int id_colmena = bd.Buscar_Colmena(nombre, id);
                     if (id_colmena != 0) {
                         int bandera = bd.Ingresar_Tratamiento(id, id_colmena, fecha_inicial, fecha_final, enfermedad, producto, dosis, repeticiones, encargado);
@@ -206,7 +207,7 @@ public class Tareas_Tratamiento extends javax.swing.JPanel {
                         JOptionPane.showMessageDialog(null, "No se encontro ninguna colmena con ese nombre");
                     }
                 } else {
-                    JOptionPane.showMessageDialog(null, "No se permite ingresar datos que inicien con espacios, guiones o que contengan caracteres especiales");
+                    JOptionPane.showMessageDialog(null, "No se permite ingresar datos que inicien con espacios, guiones o que contengan caracteres especiales. No deben de superar los 20 caracteres");
                 }
 
             }

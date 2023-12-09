@@ -103,7 +103,7 @@ public class Tareas_Alimentos extends javax.swing.JPanel {
         jPanel3.add(jTextField10, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 210, 380, 40));
 
         jLabel21.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 34)); // NOI18N
-        jLabel21.setText("Alimento");
+        jLabel21.setText("Nombre del Alimento");
         jPanel3.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 270, -1, 30));
 
         jTextField11.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
@@ -175,9 +175,11 @@ public class Tareas_Alimentos extends javax.swing.JPanel {
             } else {
                 boolean bandera_alimento = esPalabraValida2(alimentos);
                 boolean bandera_tipo = esPalabraValida2(tipo);
-                if (bandera_alimento && bandera_tipo) {
+                boolean bandera_descripcion = esPalabraValida2(descripcion);
+                if (bandera_alimento && bandera_tipo && bandera_descripcion
+                        && alimentos.length() <= 20 && tipo.length() <= 20 && descripcion.length() <= 100) {
                     boolean bandera_colmena = esPalabraValida(nombre);
-                    if (bandera_colmena) {
+                    if (bandera_colmena && nombre.length()<=15) {
                         int id_colmena = bd.Buscar_Colmena(nombre, id);
                         if (id_colmena != 0) {
                             int bandera = bd.Insertar_alimentacion(id, id_colmena, fecha_inicial, alimentos, tipo, cantidad, cantidad_dias, descripcion);
@@ -195,10 +197,11 @@ public class Tareas_Alimentos extends javax.swing.JPanel {
                             JOptionPane.showMessageDialog(null, "No se encontro el nombre de la colmena");
                         }
                     } else {
-                         JOptionPane.showMessageDialog(null, "El nombre de la colmena no debe de empezar con numeros, espacios o tener caracteres especiales");
+                        JOptionPane.showMessageDialog(null, "El nombre de la colmena no debe de empezar con numeros, espacios o tener caracteres especiales. Tampoco puede tener más de 15 caracteres");
                     }
                 } else {
-                    JOptionPane.showMessageDialog(null, "Tipo y alimentación no deben de empezar con numeros, espacios o tener caracteres especiales");
+                    JOptionPane.showMessageDialog(null, "Tipo, nombre del alimento y descripción no deben de empezar con números, espacios o tener caracteres especiales. El nombre del alimento "
+                            + " y el tipo no deben de superar los 20 caracteres");
                 }
             }
         } catch (Exception e) {
@@ -206,13 +209,12 @@ public class Tareas_Alimentos extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jButton7ActionPerformed
 
-
     public static boolean esPalabraValida2(String palabra) {
         String patron = "^[a-zA-Z]+(\\s?[a-zA-Z])*$";
         Pattern pattern = Pattern.compile(patron);
         return pattern.matcher(palabra).matches();
     }
-    
+
     public static boolean esPalabraValida(String palabra) {
         String patron = "^[a-zA-Z]+(\\s?[a-zA-Z0-9]+)*$";
         Pattern pattern = Pattern.compile(patron);

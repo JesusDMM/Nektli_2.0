@@ -166,7 +166,8 @@ public class Tareas_Movimientos extends javax.swing.JPanel {
                 boolean bandera_llegada = esPalabraValida2(ciudad_llegada);
                 boolean bandera_motivo = esPalabraValida2(motivo);
                 boolean bandera_nombre = esPalabraValida(nombre);
-                if (bandera_llegada && bandera_salida && bandera_motivo && bandera_nombre) {
+                if (bandera_llegada && bandera_salida && bandera_motivo && bandera_nombre 
+                    && ciudad.length()<=20 && ciudad_llegada.length()<=20 && motivo.length()<=100 && nombre.length()<=15) {
                     int id_colmena = bd.Buscar_Colmena(nombre, id);
                     if (id_colmena != 0) {
                         int bandera = bd.Insertar_Movimiento(id, id_colmena, fecha_salida, ciudad, fecha_llegada, ciudad_llegada, motivo);
@@ -184,7 +185,7 @@ public class Tareas_Movimientos extends javax.swing.JPanel {
                         JOptionPane.showMessageDialog(null, "No se encontro el nombre de la colmena");
                     }
                 }else{
-                    JOptionPane.showMessageDialog(null, "No se permite ingresar datos que inicien con espacios, guiones o que contengan caracteres especiales");
+                    JOptionPane.showMessageDialog(null, "No se permite ingresar datos que inicien con espacios, guiones o que contengan caracteres especiales. Los datos no deben de superar los 20 caracteres");
                 }
             }
         } catch (Exception e) {
