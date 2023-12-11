@@ -1,16 +1,19 @@
 package javaswingdev.form;
 
+import inventario_quimico.email;
+import static inventario_quimico.login.Correo;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.JOptionPane;
 import static inventario_quimico.login.id;
+import java.util.regex.Pattern;
 import nektli.bd;
 
 public class Tareas_Alimentos extends javax.swing.JPanel {
 
     public Tareas_Alimentos(String name) {
         initComponents();
-   
+
     }
 
     @SuppressWarnings("unchecked")
@@ -100,7 +103,7 @@ public class Tareas_Alimentos extends javax.swing.JPanel {
         jPanel3.add(jTextField10, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 210, 380, 40));
 
         jLabel21.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 34)); // NOI18N
-        jLabel21.setText("Alimento");
+        jLabel21.setText("Nombre del Alimento");
         jPanel3.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 270, -1, 30));
 
         jTextField11.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
@@ -167,27 +170,56 @@ public class Tareas_Alimentos extends javax.swing.JPanel {
             int cantidad_dias = Integer.parseInt(jTextField7.getText());
             String descripcion = jTextArea2.getText();
             String nombre = jTextField9.getText();
-            if (fecha_inicial.equals("") || tipo.equals("") || alimentos.equals("") || descripcion.equals("") || nombre.equals("")) {
+            if (fecha_inicial.trim().equals("") || tipo.trim().equals("") || alimentos.trim().equals("") || descripcion.trim().equals("") || nombre.trim().equals("")) {
                 JOptionPane.showMessageDialog(null, "No dejes ningun campo sin rellenar");
             } else {
-                int id_colmena = bd.Buscar_Colmena(nombre, id);
-                if (id_colmena != 0) {
-                    //Insertar_alimentacion (int id_Usuario, int id_Colmena, String fecha, String alimento,String tipo, double cantidad, int cantidad_dias
-                        //,String descripcion)
-                    int bandera = bd.Insertar_alimentacion(id, id_colmena, fecha_inicial, alimentos, tipo, cantidad, cantidad_dias, descripcion);
-                    if (bandera != 0) {
-                        JOptionPane.showMessageDialog(null, "Se guardo la tarea con exito");
+                boolean bandera_alimento = esPalabraValida2(alimentos);
+                boolean bandera_tipo = esPalabraValida2(tipo);
+                boolean bandera_descripcion = esPalabraValida2(descripcion);
+                if (bandera_alimento && bandera_tipo && bandera_descripcion
+                        && alimentos.length() <= 20 && tipo.length() <= 20 && descripcion.length() <= 100) {
+                    boolean bandera_colmena = esPalabraValida(nombre);
+                    if (bandera_colmena && nombre.length()<=15) {
+                        int id_colmena = bd.Buscar_Colmena(nombre, id);
+                        if (id_colmena != 0) {
+                            int bandera = bd.Insertar_alimentacion(id, id_colmena, fecha_inicial, alimentos, tipo, cantidad, cantidad_dias, descripcion);
+                            if (bandera != 0) {
+                                JOptionPane.showMessageDialog(null, "Se guardo la tarea con exito");
+                                email email = new email();
+                                String mensaje_principal = "Creacion de una tarea de alimentación";
+                                String contenido = "Se creo la tarea de alimentación en la colemna " + nombre + " con la fecha para " + fecha_inicial;
+                                email.Mandar_especificaciones(Correo, mensaje_principal, contenido);
+                                email.Mandar_Correo();
+                            } else {
+                                JOptionPane.showMessageDialog(null, "Se produjo un error intentalo despues");
+                            }
+                        } else {
+                            JOptionPane.showMessageDialog(null, "No se encontro el nombre de la colmena");
+                        }
                     } else {
-                        JOptionPane.showMessageDialog(null, "Se produjo un error intentalo despues");
+                        JOptionPane.showMessageDialog(null, "El nombre de la colmena no debe de empezar con numeros, espacios o tener caracteres especiales. Tampoco puede tener más de 15 caracteres");
                     }
                 } else {
-                    JOptionPane.showMessageDialog(null, "No se encontro el nombre de la colmena");
+                    JOptionPane.showMessageDialog(null, "Tipo, nombre del alimento y descripción no deben de empezar con números, espacios o tener caracteres especiales. El nombre del alimento "
+                            + " y el tipo no deben de superar los 20 caracteres");
                 }
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Ingrese los datos correctamente");
         }
     }//GEN-LAST:event_jButton7ActionPerformed
+
+    public static boolean esPalabraValida2(String palabra) {
+        String patron = "^[a-zA-Z]+(\\s?[a-zA-Z])*$";
+        Pattern pattern = Pattern.compile(patron);
+        return pattern.matcher(palabra).matches();
+    }
+
+    public static boolean esPalabraValida(String palabra) {
+        String patron = "^[a-zA-Z]+(\\s?[a-zA-Z0-9]+)*$";
+        Pattern pattern = Pattern.compile(patron);
+        return pattern.matcher(palabra).matches();
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton7;

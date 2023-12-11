@@ -1,7 +1,11 @@
 package javaswingdev.form;
 
+import inventario_quimico.email;
+import static inventario_quimico.login.Correo;
+import static inventario_quimico.login.id;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 import static nektli.Tareas.ID;
 import nektli.bd;
@@ -10,7 +14,7 @@ public class Tareas_Movimientos extends javax.swing.JPanel {
 
     public Tareas_Movimientos(String name) {
         initComponents();
-   
+
     }
 
     @SuppressWarnings("unchecked")
@@ -155,32 +159,56 @@ public class Tareas_Movimientos extends javax.swing.JPanel {
             String ciudad_llegada = jTextField17.getText();
             String motivo = jTextArea3.getText();
             String nombre = jTextField18.getText();
-            if (fecha_salida.equals("") || ciudad.equals("") || fecha_llegada.equals("") || ciudad_llegada.equals("") || motivo.equals("") || nombre.equals("")) {
+            if (fecha_salida.equals("") || ciudad.trim().equals("") || fecha_llegada.equals("") || ciudad_llegada.trim().equals("") || motivo.trim().equals("") || nombre.trim().equals("")) {
                 JOptionPane.showMessageDialog(null, "Ingresa todos los datos");
             } else {
-                int id_colmena = bd.Buscar_Colmena(nombre, ID);
-                if (id_colmena != 0) {
-                    //Insertar_Movimiento (int id_Usuario, int id_Colmena, String fecha_salida, String ciudad_salida, String fecha_llegada
-                        //, String ciudad_llegada, String motivo
-                        int bandera = bd.Insertar_Movimiento(ID, id_colmena, fecha_salida, ciudad, fecha_llegada, ciudad_llegada, motivo);
+                boolean bandera_salida = esPalabraValida2(ciudad);
+                boolean bandera_llegada = esPalabraValida2(ciudad_llegada);
+                boolean bandera_motivo = esPalabraValida2(motivo);
+                boolean bandera_nombre = esPalabraValida(nombre);
+                if (bandera_llegada && bandera_salida && bandera_motivo && bandera_nombre 
+                    && ciudad.length()<=20 && ciudad_llegada.length()<=20 && motivo.length()<=100 && nombre.length()<=15) {
+                    int id_colmena = bd.Buscar_Colmena(nombre, id);
+                    if (id_colmena != 0) {
+                        int bandera = bd.Insertar_Movimiento(id, id_colmena, fecha_salida, ciudad, fecha_llegada, ciudad_llegada, motivo);
                         if (bandera != 0) {
                             JOptionPane.showMessageDialog(null, "Se guardo la tarea con exito");
+                            email email = new email();
+                            String mensaje_principal = "Creación de la tarea movimientos";
+                            String contenido = "Se creo la tarea de moviemiento en la colmena " + nombre + " y se espera llegar en la fecha : " + fecha_llegada;
+                            email.Mandar_especificaciones(Correo, mensaje_principal, contenido);
+                            email.Mandar_Correo();
                         } else {
                             JOptionPane.showMessageDialog(null, "Se produjo un error intentalo despues");
                         }
                     } else {
                         JOptionPane.showMessageDialog(null, "No se encontro el nombre de la colmena");
                     }
+                }else{
+                    JOptionPane.showMessageDialog(null, "No se permite ingresar datos que inicien con espacios, guiones o que contengan caracteres especiales. Los datos no deben de superar los 20 caracteres");
                 }
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "Ingresa todos los datos correctamente");
             }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Ingresa todos los datos correctamente");
+        }
     }//GEN-LAST:event_jButton11ActionPerformed
 
     private void jTextField16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField16ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField16ActionPerformed
 
+    public static boolean esPalabraValida2(String palabra) {
+        String patron = "^[a-zA-Z]+(\\s?[a-zA-Z])*$";
+        Pattern pattern = Pattern.compile(patron);
+        return pattern.matcher(palabra).matches();
+    }
+
+    public static boolean esPalabraValida(String palabra) {
+        String patron = "^[a-zA-Z]+(\\s?[a-zA-Z0-9]+)*$";
+        Pattern pattern = Pattern.compile(patron);
+        return pattern.matcher(palabra).matches();
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton11;
     private com.toedter.calendar.JDateChooser jDateChooser10;

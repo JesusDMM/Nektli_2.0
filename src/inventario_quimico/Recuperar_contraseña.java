@@ -90,7 +90,7 @@ public class Recuperar_contraseña extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(rootPane, "Pin incorrecto");
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(rootPane, "Se debe de ingresar un numero");
+            JOptionPane.showMessageDialog(rootPane, "Se debe de ingresar un número");
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 

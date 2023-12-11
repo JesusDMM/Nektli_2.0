@@ -4,8 +4,10 @@
  */
 package nektli;
 
-
+import inventario_quimico.Confirmar_Correo;
+import inventario_quimico.email;
 import inventario_quimico.login;
+import java.util.Random;
 import javax.swing.ImageIcon;
 
 import java.util.regex.Matcher;
@@ -24,19 +26,24 @@ import javax.swing.JOptionPane;
  */
 public class Registro extends javax.swing.JFrame {
 
+    public static int numero_Random = 0;
+    public static String Nombre = "";
+    public static String Ocupacion = "";
+    public static String Contraseña = "";
+    public static String Correo = "";
     /**
      * Creates new form Registro
      */
     public Registro() {
         initComponents();
-          ImageIcon icono = new ImageIcon("C:\\Users\\Jaime Tec\\Documents\\TecMante\\Roberto\\Nektli\\src\\recursos\\icono.png");
+        ImageIcon icono = new ImageIcon("C:\\Users\\Jaime Tec\\Documents\\TecMante\\Roberto\\Nektli\\src\\recursos\\icono.png");
 
         // Establecer el ícono en la ventana
         setIconImage(icono.getImage());
     }
 
     public boolean verificar_email(String correo) {
-        String regx = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$";
+        String regx = "^[a-zA-Z][a-zA-Z0-9_\\.]*@[a-zA-Z0-9.-]+$";
         Pattern pattern = Pattern.compile(regx);
         Matcher matcher = pattern.matcher(correo);
         if (matcher.matches()) {
@@ -191,33 +198,63 @@ public class Registro extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jPasswordField1ActionPerformed
 
+    public static boolean esStringValido(String cadena) {
+        //patron para permitir solo la primera letra sea una letra luego solo letras numeros guiones bajos y espacios pero no al final
+        String patron = "^[a-zA-Z][a-zA-Z0-9_\\s]*$";
+        Pattern pattern = Pattern.compile(patron);
+        return pattern.matcher(cadena).matches();
+    }
+
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        if (jTextField1.getText().equals("") || jTextField2.getText().equals("") || jPasswordField1.getText().equals("") || jPasswordField2.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "No dejes ningun campo en blanco");
+        if (jTextField1.getText().trim().equals("") || jTextField2.getText().trim().equals("")
+                || jPasswordField1.getText().trim().equals("") || jPasswordField2.getText().trim().equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "No dejes ningún campo en blanco.");
         } else {
-            if (jPasswordField1.getText().equals(jPasswordField2.getText())) {
-                bd bd = new bd();
-                String Nombre = jTextField2.getText();
-                Object Seleccion = jComboBox1.getSelectedItem();
-                String Ocupacion = Seleccion.toString();
-                String Correo = jTextField1.getText();
-                String Contraseña = jPasswordField1.getText();
-                boolean verificacion_correo = verificar_email(Correo);
-                if (verificacion_correo == true) {
-                    boolean bandera = bd.Ingresar_Usuario(Nombre, Ocupacion, Correo, Contraseña);
-                    if (bandera == true) {
-                        JOptionPane.showMessageDialog(rootPane, "Informacion Guardada con exito, Inicia Sesion");
-                        login login = new login();
-                        login.setVisible(true);
-                        this.dispose();
+            Nombre = jTextField2.getText();
+            boolean bandera_nombre = esStringValido(Nombre);
+            if (bandera_nombre == true && Nombre.length()<=15) {
+                if (jPasswordField1.getText().equals(jPasswordField2.getText())) {
+                    Contraseña = jPasswordField1.getText();
+                    boolean bandera_contraseña = esStringValido(jPasswordField1.getText());
+                    if (bandera_contraseña && Contraseña.length()<=15) {
+                        bd bd = new bd();
+                        Object Seleccion = jComboBox1.getSelectedItem();
+                        Ocupacion = Seleccion.toString();
+                        Correo = jTextField1.getText();
+                        boolean verificacion_correo = verificar_email(Correo);
+                        if (verificacion_correo == true) {
+                            boolean bandera_correo = bd.Buscar_Correo_Usuario(Correo);
+                            if (bandera_correo == true) {
+                                JOptionPane.showMessageDialog(rootPane, "El correo ya fue usado en otra cuenta, utiliza otro correo");
+                            } else {
+                                email correo = new email();
+                                String titulo = "Comprobación de correo";
+
+                                Random random = new Random();
+                                numero_Random = random.nextInt(9999 - 1500 + 1) + 1500;
+                                String numero = numero_Random + "";
+
+                                String contenido = "El codigo de confirmación de correo es el siguiente:  " + numero;
+                                correo.Mandar_especificaciones(jTextField1.getText(), titulo, contenido);
+                                correo.Mandar_Correo();
+
+                                Confirmar_Correo pestaña = new Confirmar_Correo ();
+                                pestaña.setVisible(true);
+
+                                /**/
+                            }
+                        } else {
+                            JOptionPane.showMessageDialog(rootPane, "Ingrese un correo válido.");
+                        }
                     } else {
-                        JOptionPane.showMessageDialog(rootPane, "Error inesperado vuelve mas tarde");
+                        JOptionPane.showMessageDialog(rootPane, "La contraseña no debe empezar con números, guiones bajos, espacios o contener caracteres especiales. La contraseña debe ser de solo 15 caracteres");
                     }
+
                 } else {
-                    JOptionPane.showMessageDialog(rootPane, "Ingrese un correo valido");
+                    JOptionPane.showMessageDialog(rootPane, "Las contraseñas deben coincidir");
                 }
             } else {
-                JOptionPane.showMessageDialog(rootPane, "Las contraseñas deben de coincidir");
+                JOptionPane.showMessageDialog(rootPane, "El nombre de usuario no debe empezar con números, guiones bajos, espacios o contener caracteres especiales. El nombre debe ser de solo 15 caracteres");
             }
         }
     }//GEN-LAST:event_jButton1ActionPerformed

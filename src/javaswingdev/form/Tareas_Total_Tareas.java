@@ -185,6 +185,7 @@ public class Tareas_Total_Tareas extends javax.swing.JPanel {
                     modelo_combinado.addColumn("Fecha de salida");
                     modelo_combinado.addColumn("Ciudad de salida");
                     modelo_combinado.addColumn("Fecha llegada");
+                    modelo_combinado.addColumn("Ciudad de llegada");
                     modelo_combinado.addColumn("Motivo");
                     modelo_combinado.setRowCount(0);
                     modelo_combinado = bd.Tabla_Movimientos(modelo_combinado, id, id_colmena);

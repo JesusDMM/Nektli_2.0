@@ -1,25 +1,18 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package inventario_quimico;
-
 import java.util.Random;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javaswingdev.main.Main;
 import javax.swing.JOptionPane;
 import nektli.Registro;
 import nektli.bd;
 
-/**
- *
- * @author ME1
- */
 public class login extends javax.swing.JFrame {
-
+        
     public static int id = 0;
     public static int numeroAleatorio = 0;
     public static String Correo = "";
+
     /**
      * Creates new form login
      */
@@ -32,14 +25,15 @@ public class login extends javax.swing.JFrame {
     public int getInt() {
         return this.id;
     }
-    
+
     public int getCodigo() {
         return this.numeroAleatorio;
     }
-    
+
     public String getCorreo() {
         return this.Correo;
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -50,8 +44,8 @@ public class login extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -84,12 +78,13 @@ public class login extends javax.swing.JFrame {
         jPanel1.setBorder(new javax.swing.border.MatteBorder(null));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/clima/Imagen 3.png"))); // NOI18N
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 140, 240, 260));
+        jLabel10.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 70)); // NOI18N
+        jLabel10.setText("Nektli");
+        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 30, -1, -1));
 
-        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/clima/Imagen 2.png"))); // NOI18N
-        jLabel10.setText("jLabel10");
-        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 0, 370, 160));
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/Logo.png"))); // NOI18N
+        jLabel1.setPreferredSize(new java.awt.Dimension(253, 200));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 130, 250, 270));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 500, 440));
 
@@ -259,23 +254,68 @@ public class login extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_formWindowOpened
 
+    public boolean verificar_email(String correo) {
+        String regx = "^[a-zA-Z][a-zA-Z0-9_\\.]*@[a-zA-Z0-9.-]+$";
+        Pattern pattern = Pattern.compile(regx);
+        Matcher matcher = pattern.matcher(correo);
+        if (matcher.matches()) {
+            String dominio = correo.split("@")[1];
+            if (dominioPermitido(dominio)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static boolean dominioPermitido(String dominio) {
+        String[] dominiosPermitidos = {
+            "gmail.com",
+            "itsmante.edu.mx",
+            "outlook.com",
+            "hotmail.com"
+        };
+        for (String dominioPermitido : dominiosPermitidos) {
+            if (dominio.endsWith(dominioPermitido)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         //inicio de sesion
         bd bd = new bd();
         if (txtusername.getText().equals("") || txtpassword.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "No dejes ningun campo en blanco");
         } else {
-            id = bd.Inicio_Sesion(txtusername.getText(), txtpassword.getText());
-            if (id != 0) {
-                Correo = txtusername.getText();
-                Main menu = new Main();
-                menu.setVisible(true);
-                this.dispose();
+            boolean bandera_correo = verificar_email(txtusername.getText());
+            if (bandera_correo) {
+                boolean bandera_contraseña = esStringValido(txtpassword.getText());
+                if (bandera_contraseña) {
+                    id = bd.Inicio_Sesion(txtusername.getText().trim(), txtpassword.getText());
+                    if (id != 0) {
+                        Correo = txtusername.getText();
+                        Main menu = new Main();
+                        menu.setVisible(true);
+                        this.dispose();
+                    } else {
+                        JOptionPane.showMessageDialog(rootPane, "Usuario no encontrado");
+                    }
+                }else{
+                    JOptionPane.showMessageDialog(rootPane, "El formato de la contraseña no es valido");
+                }
             } else {
-                JOptionPane.showMessageDialog(rootPane, "Usuario no encontrado");
+                JOptionPane.showMessageDialog(rootPane, "Correo ingresado no valido");
             }
         }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    public static boolean esStringValido(String cadena) {
+        //patron para permitir solo la primera letra sea una letra luego solo letras numeros guiones bajos y espacios pero no al final
+        String patron = "^[a-zA-Z][a-zA-Z0-9_\\s]*$";
+        Pattern pattern = Pattern.compile(patron);
+        return pattern.matcher(cadena).matches();
+    }
 
     private void jLabel13MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel13MouseClicked
         // registrarse
@@ -286,7 +326,7 @@ public class login extends javax.swing.JFrame {
 
     private void jLabel11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel11MouseClicked
         // recuperar contraseña
-        if (txtusername.getText().equals("")) {
+        if (txtusername.getText().trim().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Ingresa primero el correo");
         } else {
             bd bd = new bd();
@@ -297,18 +337,18 @@ public class login extends javax.swing.JFrame {
 
                 Random random = new Random();
                 numeroAleatorio = random.nextInt(9999 - 1500 + 1) + 1500;
-                String numero = numeroAleatorio+"";
+                String numero = numeroAleatorio + "";
 
-                String contenido = "El codigo de la recuperacion de tu contraseña es "+numero;
+                String contenido = "El codigo de la recuperacion de tu contraseña es " + numero;
                 correo.Mandar_especificaciones(txtusername.getText(), titulo, contenido);
                 correo.Mandar_Correo();
-                
+
                 Correo = txtusername.getText();
-                
+
                 Recuperar_contraseña modulo = new Recuperar_contraseña();
                 modulo.setVisible(true);
             } else {
-                JOptionPane.showMessageDialog(rootPane, "Correo no valido");
+                JOptionPane.showMessageDialog(rootPane, "Este correo no tiene una cuenta vinculada");
             }
         }
     }//GEN-LAST:event_jLabel11MouseClicked

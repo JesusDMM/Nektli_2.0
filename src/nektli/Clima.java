@@ -127,7 +127,7 @@ public class Clima extends javax.swing.JFrame {
                 jButton2ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 750, 100, 80));
+        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 620, 100, 80));
 
         jButton3.setFont(new java.awt.Font("OCR A Extended", 0, 32)); // NOI18N
         jButton3.setText(">");
@@ -136,7 +136,7 @@ public class Clima extends javax.swing.JFrame {
                 jButton3ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 750, 100, 80));
+        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 620, 100, 80));
 
         jLabel10.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 28)); // NOI18N
         jLabel10.setText("jLabel10");
@@ -163,7 +163,7 @@ public class Clima extends javax.swing.JFrame {
         getContentPane().add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(1040, 660, -1, -1));
 
         jLabel16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/MovimientoSalida/BotonRegresar.png"))); // NOI18N
-        getContentPane().add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, -1, -1));
+        getContentPane().add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, -1, -1));
 
         jLabel17.setBackground(new java.awt.Color(214, 234, 248));
         jLabel17.setForeground(new java.awt.Color(102, 255, 51));
