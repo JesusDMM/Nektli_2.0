@@ -34,20 +34,37 @@ public class Menu extends JPanel {
         add(scroll);
         
         
-        addTitle("Estadisticas");
-        addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.DASHBOARD, "Dashboard"));
         
-        
-        
-        addTitle("General");
+          addTitle("General");
         
         addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.NATURE, "Colmenas"));
         addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.CHECK_CIRCLE, "Tareas", "Alimentos", "Cosechas","Movimientos", "Tratamientos", "Total Tareas"));
         addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.TRENDING_FLAT, "Movimientos","Entrada", "Salida"));
 
         
-        addTitle("Sesion");
-        addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.CLOSE, "Cerrar sesión", "Salir al login", "Registrarse"));
+        addTitle("Pronosticos");
+        addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.CLOUD, "Clima"));
+        
+        addTitle("Reportes");
+        addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.DESCRIPTION, "Reporte"));
+
+        
+        
+//        
+//        addTitle("Estadisticas");
+//        addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.DASHBOARD, "Dashboard"));
+//        
+//        
+//        
+//        addTitle("General");
+//        
+//        addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.NATURE, "Colmenas"));
+//        addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.CHECK_CIRCLE, "Tareas", "Alimentos", "Cosechas","Movimientos", "Tratamientos", "Total Tareas"));
+//        addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.TRENDING_FLAT, "Movimientos","Entrada", "Salida"));
+//
+//        
+//        addTitle("Sesion");
+//        addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.CLOSE, "Cerrar sesión", "Salir al login", "Registrarse"));
         
 
     }

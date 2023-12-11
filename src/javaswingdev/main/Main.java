@@ -28,24 +28,26 @@ public class Main extends javax.swing.JFrame {
             @Override
             public void menuSelected(int index, int indexSubMenu) {
                 if (index == 0 && indexSubMenu == 0) {
-                    showForm(new Form_Dashboard());
-                } else if (index == 1 && indexSubMenu == 0) {
                     showForm(new Colmenas(index + " " + indexSubMenu));
-                } else if (index == 2 && indexSubMenu == 1) {
+                } else if (index == 1 && indexSubMenu == 1) {
                     showForm(new Tareas_Alimentos(index + " " + indexSubMenu));
-                } else if (index == 2 && indexSubMenu == 2) {
+                } else if (index == 1 && indexSubMenu == 2) {
                     showForm(new Tareas_Cosecha(index + " " + indexSubMenu));
-                }else if (index == 2 && indexSubMenu == 3) {
+                } else if (index == 1 && indexSubMenu == 3) {
                     showForm(new Tareas_Movimientos(index + " " + indexSubMenu));
-                }else if (index == 2 && indexSubMenu == 4) {
+                } else if (index == 1 && indexSubMenu == 4) {
                     showForm(new Tareas_Tratamiento(index + " " + indexSubMenu));
-                }else if (index == 2 && indexSubMenu == 5) {
+                } else if (index == 1 && indexSubMenu == 5) {
                     showForm(new Tareas_Total_Tareas(index + " " + indexSubMenu));
-                }else if (index == 3 && indexSubMenu == 1) {
+                } else if (index == 2 && indexSubMenu == 1) {
                     showForm(new Movimiento_Entrada(index + " " + indexSubMenu));
-                }else if (index == 3 && indexSubMenu == 2) {
+                } else if (index == 2 && indexSubMenu == 2) {
                     showForm(new Movimiento_Salida(index + " " + indexSubMenu));
-                }else {
+                } else if (index == 3 && indexSubMenu == 0) {
+                    showForm(new javaswingdev.form.Clima(index + " " + indexSubMenu));
+                } else if (index == 4 && indexSubMenu == 0) {
+                    showForm(new javaswingdev.form.Reportes(index + " " + indexSubMenu));
+                } else {
                     showForm(new Tareas_Tratamiento(index + " " + indexSubMenu));
 
                 }
@@ -54,6 +56,38 @@ public class Main extends javax.swing.JFrame {
         menu.setSelectedIndex(0, 0);
     }
 
+//    private void init() {
+//        main = this;
+//        titleBar.initJFram(this);
+//        menu.addEvent(new EventMenuSelected() {
+//            @Override
+//            public void menuSelected(int index, int indexSubMenu) {
+//                if (index == 0 && indexSubMenu == 0) {
+//                    showForm(new Form_Dashboard());
+//                } else if (index == 1 && indexSubMenu == 0) {
+//                    showForm(new Colmenas(index + " " + indexSubMenu));
+//                } else if (index == 2 && indexSubMenu == 1) {
+//                    showForm(new Tareas_Alimentos(index + " " + indexSubMenu));
+//                } else if (index == 2 && indexSubMenu == 2) {
+//                    showForm(new Tareas_Cosecha(index + " " + indexSubMenu));
+//                }else if (index == 2 && indexSubMenu == 3) {
+//                    showForm(new Tareas_Movimientos(index + " " + indexSubMenu));
+//                }else if (index == 2 && indexSubMenu == 4) {
+//                    showForm(new Tareas_Tratamiento(index + " " + indexSubMenu));
+//                }else if (index == 2 && indexSubMenu == 5) {
+//                    showForm(new Tareas_Total_Tareas(index + " " + indexSubMenu));
+//                }else if (index == 3 && indexSubMenu == 1) {
+//                    showForm(new Movimiento_Entrada(index + " " + indexSubMenu));
+//                }else if (index == 3 && indexSubMenu == 2) {
+//                    showForm(new Movimiento_Salida(index + " " + indexSubMenu));
+//                }else {
+//                    showForm(new Tareas_Tratamiento(index + " " + indexSubMenu));
+//
+//                }
+//            }
+//        });
+//        menu.setSelectedIndex(0, 0);
+//    }
     public void showForm(Component com) {
         body.removeAll();
         body.add(com);
