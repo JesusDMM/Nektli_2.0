@@ -71,9 +71,17 @@ public class Clima extends javax.swing.JFrame {
         jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
+        jLabel19 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
         getContentPane().add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 60, 480, 31));
 
         jLabel1.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 32)); // NOI18N
@@ -169,7 +177,15 @@ public class Clima extends javax.swing.JFrame {
         jLabel17.setForeground(new java.awt.Color(102, 255, 51));
         jLabel17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/clima/Fondo.png"))); // NOI18N
         jLabel17.setText("jLabel17");
-        getContentPane().add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1280, 760));
+        getContentPane().add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1280, 740));
+
+        jLabel18.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 28)); // NOI18N
+        jLabel18.setText("jLabel10");
+        getContentPane().add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(139, 304, -1, -1));
+
+        jLabel19.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 32)); // NOI18N
+        jLabel19.setText("Clima general");
+        getContentPane().add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 140, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -226,6 +242,10 @@ public class Clima extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -274,6 +294,8 @@ public class Clima extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
