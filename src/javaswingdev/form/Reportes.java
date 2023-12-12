@@ -11,12 +11,12 @@ import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 import static nektli.Tareas.ID;
 import nektli.bd;
-import org.jfree.chart.ChartFactory;
+/*import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
-import org.jfree.data.general.DefaultPieDataset;
+import org.jfree.data.general.DefaultPieDataset;*/
 
 public class Reportes extends javax.swing.JPanel {
 
@@ -171,7 +171,7 @@ public class Reportes extends javax.swing.JPanel {
         return pattern.matcher(palabra).matches();
     }
     // Grafico de pastel
-        private DefaultPieDataset datosmiel = new DefaultPieDataset();
+        /*private DefaultPieDataset datosmiel = new DefaultPieDataset();
         
         int n1 = Integer.parseInt(jTextField1.getText());
         int n2 = Integer.parseInt(jTextField2.getText());
@@ -330,7 +330,7 @@ public class Reportes extends javax.swing.JPanel {
         false);
         this.setVisible(
         true);
-        
+        */
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel7;

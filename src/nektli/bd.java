@@ -72,6 +72,71 @@ public class bd {
         }
         return 0;
     }
+    //nombre de la colmena y la cantidad total de cosechas de productos que no sean miel
+    public Vector<String> cosechas_barra() {
+        Vector<String> Nombre_cantidad = new Vector<String>();
+        try {
+            ps = con.prepareStatement("select Nombre_colmena, sum(Cantidad) as numero from cosechas as c join tareas as t on c.id_Tarea = t.Id where c.Producto != 'Miel' group by Nombre_colmena");
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Nombre_cantidad.add(rs.getString("Nombre_colmena"));
+                Nombre_cantidad.add(rs.getInt("numero") + "");
+            }
+            return Nombre_cantidad;
+        } catch (Exception e) {
+            System.err.print(e);
+        }
+        return Nombre_cantidad;
+    }
+    //nombre de la colmenas y la cantidad de veces que se realizo una alimentacion
+    public Vector<String> alimentaciones_barra() {
+        Vector<String> Nombre_cantidad = new Vector<String>();
+        try {
+            ps = con.prepareStatement("select Nombre_colmena, count(*) as numero from alimentaciones as a join tareas as t on a.id_Tarea = t.Id group by Nombre_colmena");
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Nombre_cantidad.add(rs.getString("Nombre_colmena"));
+                Nombre_cantidad.add(rs.getInt("numero") + "");
+            }
+            return Nombre_cantidad;
+        } catch (Exception e) {
+            System.err.print(e);
+        }
+        return Nombre_cantidad;
+    }
+    //nombre de la colmena y la cantidad de tratamientos de la colmena
+    public Vector<String> tratamientos_barras() {
+        Vector<String> Nombre_cantidad = new Vector<String>();
+        try {
+            ps = con.prepareStatement("select Nombre_colmena, count(*) as numero from tratamientos as tra join tareas as t on tra.id_Tarea = t.Id group by Nombre_colmena");
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Nombre_cantidad.add(rs.getString("Nombre_colmena"));
+                Nombre_cantidad.add(rs.getInt("numero") + "");
+            }
+            return Nombre_cantidad;
+        } catch (Exception e) {
+            System.err.print(e);
+        }
+        return Nombre_cantidad;
+    }
+    
+    //nombre de la colmena y la cantidad de pura miel sacada
+    public Vector<String> miel_colmenas_pastel() {
+        Vector<String> Nombre_cantidad = new Vector<String>();
+        try {
+            ps = con.prepareStatement("select Nombre_colmena, sum(Cantidad) as numero from cosechas as c join tareas as t on c.id_Tarea = t.Id where c.Producto = 'Miel' group by Nombre_colmena");
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Nombre_cantidad.add(rs.getString("Nombre_colmena"));
+                Nombre_cantidad.add(rs.getInt("numero") + "");
+            }
+            return Nombre_cantidad;
+        } catch (Exception e) {
+            System.err.print(e);
+        }
+        return Nombre_cantidad;
+    }
 
     public static int Buscar_Colmena(String Nombre, int id) {
         try {
