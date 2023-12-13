@@ -1,10 +1,17 @@
 package javaswingdev.form;
 
+import java.util.regex.Pattern;
+import javax.swing.JOptionPane;
+import nektli.api;
+
 public class Clima extends javax.swing.JPanel {
+
+    public static int numero = 0;
+    public String[][] Informacion;
 
     public Clima(String name) {
         initComponents();
-   
+
     }
 
     @SuppressWarnings("unchecked")
@@ -15,9 +22,9 @@ public class Clima extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
+        jTextFieldRound1 = new jtextfieldround.JTextFieldRound();
         jButton1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -75,6 +82,7 @@ public class Clima extends javax.swing.JPanel {
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jPanel3.add(jTextFieldRound1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 60, 430, 50));
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Botones/Buscar_1.png"))); // NOI18N
         jButton1.setBorderPainted(false);
@@ -93,13 +101,6 @@ public class Clima extends javax.swing.JPanel {
         jLabel1.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 32)); // NOI18N
         jLabel1.setText("Ingresa el nombre de tu ciudad");
         jPanel3.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 10, -1, -1));
-
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
-            }
-        });
-        jPanel3.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 70, 480, 31));
 
         jLabel4.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 32)); // NOI18N
         jLabel4.setText("Fecha y hora");
@@ -190,58 +191,65 @@ public class Clima extends javax.swing.JPanel {
         add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 1100, 720));
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
-
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // avanzar
         numero++;
-        if (numero<=39){
-            jLabel3.setText(Informacion[numero][0]);
+        if (numero <= 39) {
+            jLabel8.setText(Informacion[numero][0]);
             jLabel10.setText(Informacion[numero][1]);
             jLabel12.setText(Informacion[numero][2]);
             jLabel14.setText(Informacion[numero][3]);
             jLabel11.setText(Informacion[numero][4]);
-            jLabel13.setText(Informacion[numero][5]);
-            jLabel15.setText(Informacion[numero][6]);
-        } else if (numero>=40){
+            jLabel15.setText(Informacion[numero][5]);
+            jLabel17.setText(Informacion[numero][6]);
+        } else if (numero >= 40) {
             numero = 39;
         }
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    public static boolean esPalabraValida2(String palabra) {
+        String patron = "^[a-zA-Z]+(\\s?[a-zA-Z])*$";
+        Pattern pattern = Pattern.compile(patron);
+        return pattern.matcher(palabra).matches();
+    }
+
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         //buscar nombre de la ciudad
-        String nombre = jTextField1.getText();
-        api api = new api();
-        Double coordenadas[] = api.Obtener_Coordenas(nombre);
-        if (coordenadas[0] == 0 && coordenadas[1] == 0) {
-            JOptionPane.showMessageDialog(rootPane, "No se encuentran datos de la ciudad, prueba con otro nombre");
+        String nombre = jTextFieldRound1.getText();
+        boolean bandera_nombre = esPalabraValida2(nombre);
+        if (bandera_nombre && nombre.length()<=30) {
+            api api = new api();
+            Double coordenadas[] = api.Obtener_Coordenas(nombre);
+            if (coordenadas[0] == 0 && coordenadas[1] == 0) {
+                JOptionPane.showMessageDialog(null, "No se encuentran datos de la ciudad, prueba con otro nombre");
+            } else {
+                Informacion = new String[40][7];
+                Informacion = api.Info_Clima(coordenadas[0], coordenadas[1]);
+                jLabel8.setText(Informacion[numero][0]);
+                jLabel10.setText(Informacion[numero][1]);
+                jLabel12.setText(Informacion[numero][2]);
+                jLabel14.setText(Informacion[numero][3]);
+                jLabel11.setText(Informacion[numero][4]);
+                jLabel15.setText(Informacion[numero][5]);
+                jLabel17.setText(Informacion[numero][6]);
+            }
         } else {
-            Informacion = new String[40][7];
-            Informacion = api.Info_Clima(coordenadas[0], coordenadas[1]);
-            jLabel3.setText(Informacion[numero][0]);
-            jLabel10.setText(Informacion[numero][1]);
-            jLabel12.setText(Informacion[numero][2]);
-            jLabel14.setText(Informacion[numero][3]);
-            jLabel11.setText(Informacion[numero][4]);
-            jLabel13.setText(Informacion[numero][5]);
-            jLabel15.setText(Informacion[numero][6]);
+            JOptionPane.showMessageDialog(null, "El nombre de la ciudad no debe de empezar con numeros, espacios o tener caracteres especiales. Tampoco puede tener más de 30 caracteres");
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // retroceder
         numero--;
-        if (numero>=0){
-            jLabel3.setText(Informacion[numero][0]);
+        if (numero >= 0) {
+            jLabel8.setText(Informacion[numero][0]);
             jLabel10.setText(Informacion[numero][1]);
             jLabel12.setText(Informacion[numero][2]);
             jLabel14.setText(Informacion[numero][3]);
             jLabel11.setText(Informacion[numero][4]);
-            jLabel13.setText(Informacion[numero][5]);
-            jLabel15.setText(Informacion[numero][6]);
-        } else if (numero<0){
+            jLabel15.setText(Informacion[numero][5]);
+            jLabel17.setText(Informacion[numero][6]);
+        } else if (numero < 0) {
             numero = 0;
         }
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -270,6 +278,6 @@ public class Clima extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JTextField jTextField1;
+    private jtextfieldround.JTextFieldRound jTextFieldRound1;
     // End of variables declaration//GEN-END:variables
 }

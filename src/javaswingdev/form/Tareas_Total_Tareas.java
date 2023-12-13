@@ -5,6 +5,7 @@ import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import static inventario_quimico.login.id;
+import java.util.regex.Pattern;
 import nektli.bd;
 
 public class Tareas_Total_Tareas extends javax.swing.JPanel {
@@ -141,91 +142,102 @@ public class Tareas_Total_Tareas extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField15ActionPerformed
 
+    public static boolean esPalabraValida(String palabra) {
+        String patron = "^[a-zA-Z]+(\\s?[a-zA-Z0-9]+)*$";
+        Pattern pattern = Pattern.compile(patron);
+        return pattern.matcher(palabra).matches();
+    }
+    
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
         // Buscar colmena para la tabla
         String nombre = jTextField15.getText();
-        int id_colmena = bd.Buscar_Colmena(nombre, id);
-        if (id_colmena != 0) {
-            Object Seleccion = jComboBox1.getSelectedItem();
-            String Ocupacion = Seleccion.toString();
-            //TableColumn columna;
-            switch (Ocupacion) {
-                //Cantidad de tareas, Tratamiento, Movimiento, Cosecha, Alimento
-                case "Cantidad de tareas":
-                    modelo_combinado
-                            .setColumnCount(0);
-                    modelo_combinado.addColumn("Nombre de Colmena");
-                    modelo_combinado.addColumn("Numeros de tratamientos");
-                    modelo_combinado.addColumn("Numero de cosechas");
-                    modelo_combinado.addColumn("Numero de alimentaciones");
-                    modelo_combinado.addColumn("Numero de movimientos");
-                    modelo_combinado.setRowCount(0);
-                    modelo_combinado = bd.Tabla_Tareas(modelo_combinado, id, id_colmena);
-                    jTable1.setModel(modelo_combinado);
-                    break;
-                case "Tratamiento":
-                    modelo_combinado
-                            .setColumnCount(0);
-                    modelo_combinado.addColumn("Nombre de Colmena");
-                    modelo_combinado.addColumn("Fecha inicial");
-                    modelo_combinado.addColumn("Fecha final");
-                    modelo_combinado.addColumn("Enfermedad");
-                    modelo_combinado.addColumn("Producto");
-                    modelo_combinado.addColumn("Dosis");
-                    modelo_combinado.addColumn("Repeticiones por dia");
-                    modelo_combinado.addColumn("Encargado");
-                    modelo_combinado.setRowCount(0);
-                    modelo_combinado = bd.Tabla_Tratamiento(modelo_combinado, id, id_colmena);
-                    jTable1.setModel(modelo_combinado);
-                    break;
-                case "Movimiento":
-                    modelo_combinado
-                            .setColumnCount(0);
-                    modelo_combinado.addColumn("Nombre de Colmena");
-                    modelo_combinado.addColumn("Fecha de salida");
-                    modelo_combinado.addColumn("Ciudad de salida");
-                    modelo_combinado.addColumn("Fecha llegada");
-                    modelo_combinado.addColumn("Ciudad de llegada");
-                    modelo_combinado.addColumn("Motivo");
-                    modelo_combinado.setRowCount(0);
-                    modelo_combinado = bd.Tabla_Movimientos(modelo_combinado, id, id_colmena);
-                    jTable1.setModel(modelo_combinado);
-                    break;
-                case "Cosecha":
-                    modelo_combinado
-                            .setColumnCount(0);
-                    modelo_combinado.addColumn("Nombre de Colmena");
-                    modelo_combinado.addColumn("Fecha");
-                    modelo_combinado.addColumn("Producto");
-                    modelo_combinado.addColumn("Cantidad");
-                    modelo_combinado.addColumn("Descripción");
+        boolean bandera_nombre = esPalabraValida(nombre);
+        if (bandera_nombre && nombre.length()<=15) {
+            int id_colmena = bd.Buscar_Colmena(nombre, id);
+            if (id_colmena != 0) {
+                Object Seleccion = jComboBox1.getSelectedItem();
+                String Ocupacion = Seleccion.toString();
+                //TableColumn columna;
+                switch (Ocupacion) {
+                    //Cantidad de tareas, Tratamiento, Movimiento, Cosecha, Alimento
+                    case "Cantidad de tareas":
+                        modelo_combinado
+                                .setColumnCount(0);
+                        modelo_combinado.addColumn("Nombre de Colmena");
+                        modelo_combinado.addColumn("Numeros de tratamientos");
+                        modelo_combinado.addColumn("Numero de cosechas");
+                        modelo_combinado.addColumn("Numero de alimentaciones");
+                        modelo_combinado.addColumn("Numero de movimientos");
+                        modelo_combinado.setRowCount(0);
+                        modelo_combinado = bd.Tabla_Tareas(modelo_combinado, id, id_colmena);
+                        jTable1.setModel(modelo_combinado);
+                        break;
+                    case "Tratamiento":
+                        modelo_combinado
+                                .setColumnCount(0);
+                        modelo_combinado.addColumn("Nombre de Colmena");
+                        modelo_combinado.addColumn("Fecha inicial");
+                        modelo_combinado.addColumn("Fecha final");
+                        modelo_combinado.addColumn("Enfermedad");
+                        modelo_combinado.addColumn("Producto");
+                        modelo_combinado.addColumn("Dosis");
+                        modelo_combinado.addColumn("Repeticiones por dia");
+                        modelo_combinado.addColumn("Encargado");
+                        modelo_combinado.setRowCount(0);
+                        modelo_combinado = bd.Tabla_Tratamiento(modelo_combinado, id, id_colmena);
+                        jTable1.setModel(modelo_combinado);
+                        break;
+                    case "Movimiento":
+                        modelo_combinado
+                                .setColumnCount(0);
+                        modelo_combinado.addColumn("Nombre de Colmena");
+                        modelo_combinado.addColumn("Fecha de salida");
+                        modelo_combinado.addColumn("Ciudad de salida");
+                        modelo_combinado.addColumn("Fecha llegada");
+                        modelo_combinado.addColumn("Ciudad de llegada");
+                        modelo_combinado.addColumn("Motivo");
+                        modelo_combinado.setRowCount(0);
+                        modelo_combinado = bd.Tabla_Movimientos(modelo_combinado, id, id_colmena);
+                        jTable1.setModel(modelo_combinado);
+                        break;
+                    case "Cosecha":
+                        modelo_combinado
+                                .setColumnCount(0);
+                        modelo_combinado.addColumn("Nombre de Colmena");
+                        modelo_combinado.addColumn("Fecha");
+                        modelo_combinado.addColumn("Producto");
+                        modelo_combinado.addColumn("Cantidad");
+                        modelo_combinado.addColumn("Descripción");
 
-                    modelo_combinado.setRowCount(0);
-                    modelo_combinado = bd.Tabla_Cosechas(modelo_combinado, id, id_colmena);
-                    jTable1.setModel(modelo_combinado);
-                    /*columna = jTable1.getColumnModel().getColumn(4);
+                        modelo_combinado.setRowCount(0);
+                        modelo_combinado = bd.Tabla_Cosechas(modelo_combinado, id, id_colmena);
+                        jTable1.setModel(modelo_combinado);
+                        /*columna = jTable1.getColumnModel().getColumn(4);
                 columna.setPreferredWidth(400);*/
-                    break;
-                case "Alimento":
-                    modelo_combinado
-                            .setColumnCount(0);
-                    modelo_combinado.addColumn("Nombre de Colmena");
-                    modelo_combinado.addColumn("Fecha");
-                    modelo_combinado.addColumn("Tipo");
-                    modelo_combinado.addColumn("Alimento");
-                    modelo_combinado.addColumn("Cantidad");
-                    modelo_combinado.addColumn("Cantidad de dias");
-                    modelo_combinado.addColumn("Descripcion");
-                    modelo_combinado.setRowCount(0);
-                    modelo_combinado = bd.Tabla_Alimentaciones(modelo_combinado, id, id_colmena);
-                    jTable1.setModel(modelo_combinado);
-                    /*columna = jTable1.getColumnModel().getColumn(6);
+                        break;
+                    case "Alimento":
+                        modelo_combinado
+                                .setColumnCount(0);
+                        modelo_combinado.addColumn("Nombre de Colmena");
+                        modelo_combinado.addColumn("Fecha");
+                        modelo_combinado.addColumn("Tipo");
+                        modelo_combinado.addColumn("Alimento");
+                        modelo_combinado.addColumn("Cantidad");
+                        modelo_combinado.addColumn("Cantidad de dias");
+                        modelo_combinado.addColumn("Descripcion");
+                        modelo_combinado.setRowCount(0);
+                        modelo_combinado = bd.Tabla_Alimentaciones(modelo_combinado, id, id_colmena);
+                        jTable1.setModel(modelo_combinado);
+                        /*columna = jTable1.getColumnModel().getColumn(6);
                 columna.setPreferredWidth(400);*/
-                    break;
+                        break;
+                }
+
+            } else {
+                JOptionPane.showMessageDialog(null, "Nombre de colmena incorrecta");
             }
-
         } else {
-            JOptionPane.showMessageDialog(null, "Nombre de colmena incorrecta");
+            JOptionPane.showMessageDialog(null, "El nombre de la colmena no debe de empezar con numeros, espacios o tener caracteres especiales. Tampoco puede tener más de 15 caracteres");
         }
     }//GEN-LAST:event_jButton10ActionPerformed
 
